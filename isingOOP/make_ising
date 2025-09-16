@@ -1,0 +1,36 @@
+SHELL=/bin/sh
+ 
+# The name of this makefile goes here
+MAKEFILE= make_ising
+
+# The command you type to run the program (executable name)
+COMMAND=  ising
+
+########################################################################### 
+#compiler
+CXX= g++
+
+#compiler flags
+CXXFLAGS=  -g -O2
+
+# Instructions to compile and link 
+ising: ising.o lattice.o 
+	$(CXX) $(CXXFLAGS) -o ising ising.o lattice.o
+                 
+ising.o : ising.cpp lattice.h
+	$(CXX) $(CXXFLAGS) -c ising.cpp
+
+# Dependencies
+lattice.o: lattice.cpp lattice.h 
+	$(CXX) $(CXXFLAGS) -c lattice.cpp
+ 
+##########################################################################
+# Additional tasks 
+##########################################################################
+ 
+clean:
+	rm -f *.o
+
+##########################################################################
+# End of makefile 
+##########################################################################
