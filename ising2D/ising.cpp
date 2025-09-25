@@ -1,8 +1,7 @@
 // Casey Berger
 // Created: May 7 2014
-// Last edited: Feb 2, 2023 (updated for Smith cluster!)
+// Last edited: Sep 17, 2025 (updated for Bates)
 //
-//second attempt - starting from scratch
 //using j = 1.0 and h = 0.0
 
 // include files
@@ -16,8 +15,6 @@
 #include <stdio.h>
 #include <sstream>
 #include <time.h>
-//#include "boost/tuple/tuple.hpp"
-//#include "gnuplot-iostream/gnuplot-iostream.h"
 
 using namespace std;
 
@@ -304,7 +301,7 @@ void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double>
 {
     //cout << "write_to_file" << endl;
     //output both solutions to a .txt file to open in gnuplot
-    string fname = "mc_ising_data.txt";
+    string fname = "mc_ising_data.csv";
     ofstream fout; //output stream
     fout.open(fname.c_str(),ios::out);
     
@@ -314,12 +311,11 @@ void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double>
         cerr << "Unable to open file " << fname <<"." << endl;
         exit(10);
     }
-    fout.setf(ios::fixed);
-    fout << setw(20) << "# E/N exact" << setw(20) << "# E/N mc" << setw(20) << "T/J" << endl;
+    fout << "E/N exact, E/N mc, T/J" << endl;
     for (unsigned int n = 0; n<exact_E.size(); n++)
     {
-        fout.setf(ios::fixed);
-        fout << setw(20) << exact_E[n] << setw(20) << 1.0*mc_E[n]/(1.0*J*num) << setw(20) << temp_vec[n]/(abs(J)) << endl;
+        //fout.setf(ios::fixed);
+        fout << exact_E[n] << "," << 1.0*mc_E[n]/(1.0*J*num) << "," << temp_vec[n]/(abs(J)) << endl;
     }
     fout.close();
     exact_E.clear();
